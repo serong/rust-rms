@@ -8,8 +8,6 @@ extern crate clap;
 use std::f32::consts::PI;
 use clap::{Arg, App};
 
-
-
 fn main () {
     // TODO: Find a way to get parameters from arguments.
     // let matches = App --- 
@@ -98,7 +96,10 @@ fn main () {
     println!("Final RMS: {}", get_rms(&rmss, total));
 }
 
-
+/// A struct for Signal.
+/// 
+/// args: 2 or 3 elements depending on SignalType.
+///     SignalType::Trapezoid -> 3 elements 
 struct Signal {
     signal: SignalType,
     args: Vec<f32>
@@ -112,7 +113,8 @@ enum SignalType {
 }
 
 impl Signal {
-    // s, 12, 25
+    /// Creates a Signal from parsed input.
+    /// s, 12, 25
     fn from_input(s: String) -> Signal{
         // Trimming and splitting arguments into 2 seperate vectors.
         let trimmed = s.trim();
@@ -143,6 +145,7 @@ impl Signal {
         Signal {signal: t, args: inp }
     }
 
+    /// Returns the partial average.
     fn average(&self) -> f32 {
         match self.signal {
             SignalType::Square => average_square(self.args[0], self.args[1]),
@@ -152,6 +155,7 @@ impl Signal {
         }
     }
 
+    /// Returns the partial rms.
     fn rms(&self) -> f32 {
         match self.signal {
             SignalType::Square => rms_square(self.args[0], self.args[1]),
@@ -161,6 +165,7 @@ impl Signal {
         }
     }
 
+    /// Returns the length of the signal.
     fn time(&self) -> f32{
         match self.signal {
             SignalType::Square => self.args[1],
@@ -171,31 +176,37 @@ impl Signal {
     }
 }
 
-
+/// Calculates partial average for Square signal.
 fn average_square(a: f32, t:f32) -> f32 {
     a * t
 }
 
+/// Calculates partial average for Trapezoid or Triangle signal.
 fn average_trap(a:f32, b: f32, t:f32) -> f32 {
     (a + b) * t / 2.0
 }
 
+/// Calculates partial average for Periodic signal.
 fn average_per(a: f32, t: f32) -> f32 {
     2.0 * a * t / PI
 }
 
+/// Calculates partial rms for Square signal.
 fn rms_square(a: f32, t: f32) -> f32 {
     a * a * t
 }
 
+/// Calculates partial rms for Trapezoid or Triangle signal.
 fn rms_trap(a: f32, b: f32, t: f32) -> f32 {
     ((a*a) + (a*b) + (b*b)) * t / 3.0
 }
 
+/// Calculates partial rms for Periodic signal.
 fn rms_per(a: f32, t: f32) -> f32 {
     a * a * t / 2.0
 }
 
+/// Calculates the final voltage average.
 fn get_average(averages: &Vec<f32>, total: f32) -> f32 {
     let mut sum: f32 = 0.0;
 
@@ -206,6 +217,7 @@ fn get_average(averages: &Vec<f32>, total: f32) -> f32 {
     sum / total
 }
 
+/// Calculates the final rms.
 fn get_rms(rmss: &Vec<f32>, total: f32) -> f32 {
     let mut sum: f32 = 0.0;
 

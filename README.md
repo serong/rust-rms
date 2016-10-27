@@ -6,7 +6,7 @@ Not a generic application, but just a simple CLI app for some school tasks where
 
 For the following signals: 
 
-![triangle-signal](trig.png)
+[triangle-signal](trig.png)
 
 ```
 rms -p "t,0,-3,25 t,-3,-4,25 t,-4,0,25 s,0,25"
@@ -20,3 +20,4 @@ t -> triangle, trapezoid
 s -> square
 ```
 
+Calculations are done according to lecture slide that can be found [here](http://www.martinjott.ee/ttu/iss0050/m66tmine2013-6.pdf)
