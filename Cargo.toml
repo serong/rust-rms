@@ -1,0 +1,7 @@
+[package]
+name = "rms"
+version = "0.1.0"
+authors = ["Serkan O. @ github/serong"]
+
+[dependencies]
+clap = "2"
