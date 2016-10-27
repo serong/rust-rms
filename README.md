@@ -1,6 +1,6 @@
 # Rust-RMS
 
-Not a generic application, but just a simple CLI app for some tasks where average voltage and voltage rms are calculated.
+Not a generic application, but just a simple CLI app for some school tasks where average voltage and voltage rms are calculated.
 
 ## Usage
 
